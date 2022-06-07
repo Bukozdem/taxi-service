@@ -8,12 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import taxi.lib.Injector;
 import taxi.model.Car;
 import taxi.service.CarService;
 
 @WebServlet(urlPatterns = "/drivers/cars")
 public class GetMyCurrentCarsController extends HttpServlet {
+    private static final Logger logger = LogManager.getLogger(GetMyCurrentCarsController.class);
     private static final Injector injector = Injector.getInstance("taxi");
     private final CarService carService = (CarService) injector.getInstance(CarService.class);
 
@@ -24,6 +27,8 @@ public class GetMyCurrentCarsController extends HttpServlet {
         Long driverId = (Long) session.getAttribute("driver_id");
         List<Car> allCarsByDriver = carService.getAllByDriver(driverId);
         req.setAttribute("cars", allCarsByDriver);
+        logger.info("All cars by driver have been shown. "
+                + "Params: driver id = {}, cars = {}", driverId, allCarsByDriver);
         req.getRequestDispatcher("/WEB-INF/views/cars/all.jsp").forward(req, resp);
     }
 }
