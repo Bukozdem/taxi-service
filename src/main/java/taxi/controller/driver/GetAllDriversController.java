@@ -7,12 +7,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import taxi.lib.Injector;
 import taxi.model.Driver;
 import taxi.service.DriverService;
 
 @WebServlet(urlPatterns = "/drivers/all")
 public class GetAllDriversController extends HttpServlet {
+    private static final Logger logger = LogManager.getLogger(GetAllDriversController.class);
     private static final Injector injector = Injector.getInstance("taxi");
     private final DriverService driverService = (DriverService) injector
             .getInstance(DriverService.class);
@@ -22,6 +25,7 @@ public class GetAllDriversController extends HttpServlet {
             throws ServletException, IOException {
         List<Driver> allDrivers = driverService.getAll();
         req.setAttribute("drivers", allDrivers);
+        logger.info("All drivers have been shown");
         req.getRequestDispatcher("/WEB-INF/views/drivers/all.jsp").forward(req, resp);
     }
 }
