@@ -1,1 +1,1 @@
-web: java -jar out/artifacts/taxi-service-jar/taxi-service.jar
+web: java -jar target/taxi-service.jar
