@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionUtil {
-    private static final String URL = "Link to your DB";
-    private static final String USERNAME = "Your username";
-    private static final String PASSWORD = "Your password";
+    private static final String URL =
+            "mysql://bc2b0fc8f7c28b:136fea7e@us-cdbr-east-05.cleardb.net"
+                    + "/heroku_314b15b49417b23?reconnect=true";
+    private static final String USERNAME = "bc2b0fc8f7c28b";
+    private static final String PASSWORD = "136fea7e";
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
     static {
